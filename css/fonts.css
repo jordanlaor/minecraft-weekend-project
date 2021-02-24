@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "minecraft";
+  src: url("../fonts/MinecraftRegular.otf") format("OpenType");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "minecraft";
+  src: url("../fonts/MinecraftItalic.otf") format("OpenType");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "minecraft";
+  src: url("../fonts/MinecraftBold.otf") format("OpenType");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "minecraft";
+  src: url("../fonts/MinecraftBoldItalic.otf") format("OpenType");
+  font-weight: bold;
+  font-style: italic;
+}

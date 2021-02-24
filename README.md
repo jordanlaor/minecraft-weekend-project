@@ -4,7 +4,7 @@
 
 - Has a start btn, when clicked navigates to game page
 - has a title and a background
-- has a link, when pressed- opens an explanation about the different types and tools
+- has a link, when pressed- opens an explanation about the different types and tools and everything else on the page is hidden
 
 ## game Page
 
