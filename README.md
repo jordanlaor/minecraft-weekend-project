@@ -5,7 +5,7 @@
 + has a title and a background
 + explains about the different types and tools
 
-### game Page
+## game Page
 + The page will be divided to 2:
 + main part: grid devided to blocks of 2vh x 2vh.
 + side part: display the different tools, the inventory and too reset btns: 
