@@ -12,6 +12,7 @@ body {
   height: 100vh;
 }
 
+/* Index */
 .welcome {
   background: url("../images/landingPageBG.jpg") center bottom/cover no-repeat;
   position: relative;
@@ -35,10 +36,21 @@ body {
   cursor: pointer;
 }
 
+/* TODO Write the explanation and update bg */
 .explanation {
   background: url("../images/explanationBG.jpg") center bottom/cover no-repeat;
   display: flex;
   padding: 0 25px 25px 0;
   align-items: flex-end;
   justify-content: flex-end;
+}
+
+/* game */
+.game {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+}
+
+[data-type="sky"] {
+  background: var(--sky);
 }

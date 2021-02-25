@@ -25,7 +25,13 @@ function switchPage(e) {
   }
 }
 
-welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
-welcomeBtns['welcome__btn-start'].addEventListener('click', start);
-welcomeBtns['welcome__btn-explanation'].addEventListener('click', switchPage);
-welcomeBtns['welcome__btn-back'].addEventListener('click', switchPage);
+function eventListenersSwitch(e) {
+  if (window.location.pathname.match(/index/)) {
+    welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
+    welcomeBtns['welcome__btn-start'].addEventListener('click', start);
+    welcomeBtns['welcome__btn-explanation'].addEventListener('click', switchPage);
+    welcomeBtns['welcome__btn-back'].addEventListener('click', switchPage);
+  }
+}
+
+window.addEventListener('load', eventListenersSwitch);
