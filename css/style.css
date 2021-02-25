@@ -51,6 +51,40 @@ body {
   grid-template-columns: 1fr 150px;
 }
 
+.game__world {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+[data-type] {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+[data-type]:hover {
+  border: 1px #ffffff80 solid;
+}
+
 [data-type="sky"] {
-  background: var(--sky);
+  background-color: var(--sky);
+  background-image: none;
+}
+
+[data-type="stone"] {
+  background-image: url("../images/blocks/stoneBlock.png");
+}
+
+[data-type="log"] {
+  background-image: url("../images/blocks/logBlock.png");
+}
+
+[data-type="leaf"] {
+  background-image: url("../images/blocks/leafBlock.png");
+}
+
+[data-type="dirt"] {
+  background-image: url("../images/blocks/dirtBlock.png");
 }
