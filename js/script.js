@@ -40,15 +40,15 @@ const blocks = {
         world[row + 6][leafCol] = 'leaf';
       }
     },
-    stone: {
-      tool: '',
-      drawStone(startRow, startCol, width, height) {
-        for (let row = startRow; row <= startRow + height; row += 1) {
-          for (let col = startCol; col <= startCol + width; col += 1) {
-            world[row][col] = 'stone';
-          }
+  },
+  stone: {
+    tool: '',
+    drawStone(startRow, startCol, width, height) {
+      for (let row = startRow; row <= startRow + height; row += 1) {
+        for (let col = startCol; col <= startCol + width; col += 1) {
+          world[row][col] = 'stone';
         }
-      },
+      }
     },
   },
 };
