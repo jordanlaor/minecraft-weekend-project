@@ -37,4 +37,8 @@ body {
 
 .explanation {
   background: url("../images/explanationBG.jpg") center bottom/cover no-repeat;
+  display: flex;
+  padding: 0 25px 25px 0;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
