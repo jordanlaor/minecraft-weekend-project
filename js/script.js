@@ -8,7 +8,11 @@ function exit() {
 }
 
 function start() {
-  window.location.replace('');
+  if (/index\.html$/i) {
+    window.location = '../game.html';
+  } else {
+    window.location = './game.html';
+  }
 }
 
 welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
