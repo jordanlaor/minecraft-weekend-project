@@ -38,7 +38,7 @@ body {
 
 /* TODO Write the explanation and update bg */
 .explanation {
-  background: url("../images/explanationBG.jpg") center bottom/cover no-repeat;
+  background: url("../images/explanationBG1.jpg") center bottom/cover no-repeat;
   display: flex;
   padding: 0 25px 25px 0;
   align-items: flex-end;
@@ -87,4 +87,60 @@ body {
 
 [data-type="dirt"] {
   background-image: url("../images/blocks/dirtBlock.png");
+}
+
+/* tools */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: 150px;
+  padding: 0 10px;
+}
+
+.tool__wrapper {
+  margin: 10px 0;
+  width: 100%;
+  border: 1px solid var(--secondary-color);
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 1fr max-content;
+  background: center center/contain no-repeat var(--secondary-color);
+}
+
+.tool__wrapper:hover {
+  cursor: pointer;
+  background-color: #555555ea;
+}
+
+.tool__photo {
+  width: 100%;
+  background: center center/contain no-repeat;
+}
+
+.tool__text {
+  text-align: center;
+}
+
+[for="axe"] > .tool__photo {
+  background-image: url("../images/tools/treeAxe.png");
+}
+
+[for="pickaxe"] > .tool__photo {
+  background-image: url("../images/tools/stonePickaxe.png");
+}
+
+[for="shovel"] > .tool__photo {
+  background-image: url("../images/tools/dirtShovel.png");
+}
+
+/* game btns */
+.game__btn-wrapper {
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
 }

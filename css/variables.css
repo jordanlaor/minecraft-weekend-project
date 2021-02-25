@@ -1,6 +1,6 @@
 :root {
-  --txt-btn: #aaaaaa;
-  --bg-btn: #555555;
+  --primary-color: #aaaaaa;
+  --secondary-color: #555555;
   --hover-btn: #087008;
   --sky: #7ec0ee;
 }

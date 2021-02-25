@@ -20,7 +20,40 @@
   <body>
     <div class="page game">
       <div class="game__world"></div>
-      <div class="game__toolkit"></div>
+      <div class="game__toolkit">
+        <div class="tools">
+          <label class="tool__wrapper" for="axe"
+            ><input type="radio" name="tool" id="axe" class="hidden" />
+            <div class="tool__photo"></div>
+            <div class="tool__name --font-size-1-4rem --txt-color-primary">Axe</div>
+          </label>
+          <label class="tool__wrapper" for="shovel"
+            ><input type="radio" name="tool" id="shovel" class="hidden" />
+            <div class="tool__photo"></div>
+            <div class="tool__name --font-size-1-4rem --txt-color-primary">Shovel</div>
+          </label>
+          <label class="tool__wrapper" for="pickaxe"
+            ><input type="radio" name="tool" id="pickaxe" class="hidden" />
+            <div class="tool__photo"></div>
+            <div class="tool__name --font-size-1-4rem --txt-color-primary">Pickaxe</div>
+          </label>
+        </div>
+        <div class="inventory"></div>
+        <div class="game__btn-wrapper">
+          <button
+            class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-2rem --padding-10px"
+            id="reset-world"
+          >
+            Reset World
+          </button>
+          <button
+            class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-2rem --padding-10px"
+            id="reset-game"
+          >
+            Reset Game
+          </button>
+        </div>
+      </div>
     </div>
     <script src="./js/script.js"></script>
   </body>
