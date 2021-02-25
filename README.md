@@ -10,6 +10,7 @@
 
 - The page will be divided to 2:
 - main part: grid devided to blocks of 2vh x 2vh.
+  - overflow-scroll
 - side part: display:
   - the different tools
   - the inventory and too reset btns:

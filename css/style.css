@@ -14,6 +14,25 @@ body {
 
 .welcome {
   background: url("../images/landingPageBG.jpg") center bottom/cover no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.welcome__btn-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  position: absolute;
+  bottom: 22vh;
+  gap: 10px;
+}
+
+.welcome__btn:hover {
+  background-color: var(--hover-btn);
+  cursor: pointer;
 }
 
 .explanation {

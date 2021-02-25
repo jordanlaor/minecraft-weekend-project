@@ -1,3 +1,22 @@
 .hidden {
   display: none;
 }
+
+/* colors */
+.--bg-color-btn {
+  background-color: var(--bg-btn);
+}
+
+.--txt-color-btn {
+  color: var(--txt-btn);
+}
+
+/* font size */
+.--font-size-3rem {
+  font-size: 3rem;
+}
+
+/* margin & padding */
+.--padding-10px {
+  padding: 10px;
+}
