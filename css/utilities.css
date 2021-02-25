@@ -11,8 +11,20 @@
   color: var(--primary-color);
 }
 
+.--bg-color-primary {
+  background-color: var(--primary-color);
+}
+
+.--bg-color-secondary {
+  background-color: var(--secondary-color);
+}
+
 .--bg-color-hover-btn {
-  background-color: var(--hover-btn) !important;
+  background-color: var(--hover-btn);
+}
+
+.--bg-color-red {
+  background-color: #800419;
 }
 
 /* font size */

@@ -10,7 +10,7 @@ document.querySelectorAll('.page').forEach((page) => {
 const root = document.querySelector(':root');
 
 const current = {
-  tool: '',
+  tool: 'axe',
 };
 
 // Game consts
@@ -18,16 +18,24 @@ let rows;
 let cols;
 let world = [];
 const toolsbox = document.querySelector('.tools');
+const inventory = [];
+document.querySelectorAll('.inventory__box').forEach((box) => {
+  box.dataset.index = inventory.length;
+  inventory.push(box);
+});
 
 const tools = {
   axe: {
     url: './images/tools/treeAxe.png',
+    blocks: ['leaf', 'log'],
   },
   pickaxe: {
     url: './images/tools/stonePickaxe.png',
+    blocks: ['stone'],
   },
   shovel: {
     url: './images/tools/dirtShovel.png',
+    blocks: ['dirt'],
   },
 };
 const blocks = {
@@ -55,6 +63,8 @@ const blocks = {
         world[row + 4][leafCol] = 'leaf';
         world[row + 5][leafCol] = 'leaf';
         world[row + 6][leafCol] = 'leaf';
+        world[row + 7][leafCol] = 'leaf';
+        world[row + 8][leafCol] = 'leaf';
       }
     },
   },
@@ -133,6 +143,15 @@ function toolChange(e) {
   });
 }
 
+function worldClicked(e) {
+  if (tools[current.tool].blocks.some((block) => block === e.target.dataset.type)) {
+    console.log(tools[current.tool].blocks);
+  } else {
+    toolsbox.querySelector(`[for='${current.tool}']`).classList.add('--bg-color-red');
+    setTimeout(() => toolsbox.querySelector(`[for='${current.tool}']`).classList.remove('--bg-color-red'), 300);
+  }
+}
+
 function eventListenersSwitch(e) {
   if (window.location.pathname.match(/game/)) {
     startWorldMatrix();
@@ -140,9 +159,10 @@ function eventListenersSwitch(e) {
     blocks.tree.drawTree(blocks.dirt.height, 2);
     blocks.stone.drawStone(blocks.dirt.height, 10, 2, 2);
     drawWorld();
-    toolsbox.querySelector(`input[type='radio']`).click();
     welcomeBtns['reset-world'].addEventListener('click', drawWorld);
     toolsbox.addEventListener('change', toolChange);
+    worldContainer.addEventListener('click', worldClicked);
+    setTimeout(() => toolsbox.querySelector(`input[type='radio']`).click(), 1);
   } else {
     welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
     welcomeBtns['welcome__btn-start'].addEventListener('click', start);
