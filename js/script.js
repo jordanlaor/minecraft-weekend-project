@@ -8,7 +8,7 @@ function exit() {
 }
 
 function start() {
-  if (/index\.html$/i) {
+  if (/index\.html$/i.test(window.location)) {
     window.location = '../game.html';
   } else {
     window.location = './game.html';
