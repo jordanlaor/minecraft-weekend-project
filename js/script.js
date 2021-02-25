@@ -7,6 +7,10 @@ function exit() {
   window.close();
 }
 
+function start() {
+  window.location.replace('');
+}
+
 welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
-welcomeBtns['welcome__btn-start'].addEventListener('click', exit);
+welcomeBtns['welcome__btn-start'].addEventListener('click', start);
 welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
