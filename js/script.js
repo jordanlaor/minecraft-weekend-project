@@ -26,15 +26,15 @@ document.querySelectorAll('.inventory__box').forEach((box) => {
 
 const tools = {
   axe: {
-    url: './images/tools/treeAxe.png',
+    url: './images/tools/treeAxeCursor.png',
     blocks: ['leaf', 'log'],
   },
   pickaxe: {
-    url: './images/tools/stonePickaxe.png',
+    url: './images/tools/stonePickaxeCursor.png',
     blocks: ['stone'],
   },
   shovel: {
-    url: './images/tools/dirtShovel.png',
+    url: `./images/tools/dirtShovelCursor.png`,
     blocks: ['dirt'],
   },
 };
@@ -146,6 +146,7 @@ function toolChange(e) {
 function worldClicked(e) {
   if (tools[current.tool].blocks.some((block) => block === e.target.dataset.type)) {
     console.log(tools[current.tool].blocks);
+    // TODO Add the things that needs to happen here!
   } else {
     toolsbox.querySelector(`[for='${current.tool}']`).classList.add('--bg-color-red');
     setTimeout(() => toolsbox.querySelector(`[for='${current.tool}']`).classList.remove('--bg-color-red'), 300);
