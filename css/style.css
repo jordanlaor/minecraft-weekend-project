@@ -95,7 +95,6 @@ body {
   height: 100%;
   display: grid;
   grid-auto-flow: row;
-  width: 200vw;
 }
 
 [data-type] {
@@ -138,6 +137,10 @@ body {
 
 [data-type="hay"] {
   background-image: url("../images/blocks/hayBlock.png");
+}
+
+.cloud {
+  background-color: #ffffff;
 }
 
 /* tools */

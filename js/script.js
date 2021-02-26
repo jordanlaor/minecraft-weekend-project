@@ -8,16 +8,21 @@ document.querySelectorAll('.page').forEach((page) => {
 });
 
 const root = document.querySelector(':root');
+let width = document.querySelector('#width');
 
 const current = {
   tool: 'axe',
   type: '',
   cursor: '',
 };
-
-// Game consts
+// game
 let rows;
 let cols;
+
+function randomCol(type) {
+  return Math.floor(Math.random() * (cols - type.width));
+}
+
 let world = [];
 const toolsbox = document.querySelector('.tools');
 const inventory = {
@@ -73,7 +78,14 @@ const blocks = {
   },
   tree: {
     tool: 'axe',
-    drawTree(row, col) {
+    height: 9,
+    width: 8,
+    drawTree() {
+      const row = blocks.dirt.height;
+      let col;
+      do {
+        col = randomCol(this);
+      } while (!blocks.canBlockBePlaced(this.width, this.height, row, col));
       for (let logRow = row; logRow < row + 4; logRow += 1) {
         world[logRow][col + 3] = 'log';
         world[logRow][col + 4] = 'log';
@@ -95,25 +107,45 @@ const blocks = {
   },
   stone: {
     tool: 'pickaxe',
-    drawStone(startRow, startCol, width, height) {
-      for (let row = startRow; row <= startRow + height; row += 1) {
-        for (let col = startCol; col <= startCol + width; col += 1) {
-          world[row][col] = 'stone';
-        }
+    height: 1,
+    width: 1,
+    drawStone(height) {
+      let row = blocks.dirt.height;
+      let col;
+      do {
+        col = randomCol(this);
+      } while (!blocks.canBlockBePlaced(this.width, height, row, col));
+      for (row; row < blocks.dirt.height + height; row += 1) {
+        world[row][col] = 'stone';
       }
     },
     url: './images/blocks/stoneBlock.png',
   },
   hay: {
     tool: 'hoe',
-    drawHay(startRow, startCol, width, height) {
-      for (let row = startRow; row <= startRow + height; row += 1) {
-        for (let col = startCol; col <= startCol + width; col += 1) {
-          world[row][col] = 'hay';
-        }
+    width: 1,
+    height: 1,
+    drawHay(height) {
+      let row = blocks.dirt.height;
+      let col;
+      do {
+        col = randomCol(this);
+      } while (!blocks.canBlockBePlaced(this.width, height, row, col));
+      for (row; row < blocks.dirt.height + height; row += 1) {
+        world[row][col] = 'hay';
       }
     },
     url: './images/blocks/hayBlock.png',
+  },
+  canBlockBePlaced(width, height, startRow, startCol) {
+    for (let row = startRow; row < startRow + height; row += 1) {
+      for (let col = startCol; col < startCol + width; col += 1) {
+        if (world[row][col] !== 'sky') {
+          return false;
+        }
+      }
+    }
+    return true;
   },
 };
 
@@ -122,7 +154,8 @@ function exit() {
 }
 
 function start() {
-  window.location = './game.html';
+  width = parseInt(width.value);
+  window.location = `./game.html?width=${width}`;
 }
 
 function welcome() {
@@ -152,15 +185,18 @@ function switchPage(e) {
 const worldContainer = document.querySelector('.game__world');
 
 // game
-function startWorldMatrix(inputCols = 30, inputRows = 30) {
-  worldContainer.style.gridTemplateColumns = `repeat(${inputCols}, 1fr)`;
-  worldContainer.style.gridTemplateRows = `repeat(${inputRows}, 1fr)`;
-  rows = inputRows;
-  cols = inputCols;
+function startWorldMatrix(width) {
+  rows = 30;
+  const worldWrapper = document.querySelector('.game__world-container');
+  const cellHeight = parseInt(window.getComputedStyle(worldWrapper).height) / rows;
+  worldContainer.style.width = `${(parseInt(window.getComputedStyle(worldWrapper).width) * width) / 100}px`;
+  cols = Math.ceil(parseInt(worldContainer.style.width) / cellHeight);
+  worldContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  worldContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
   world = [];
-  for (let row = 0; row < inputRows; row += 1) {
+  for (let row = 0; row < rows; row += 1) {
     const worldCol = [];
-    for (let col = 0; col < inputCols; col += 1) {
+    for (let col = 0; col < cols; col += 1) {
       worldCol.push('sky');
     }
     world.push(worldCol);
@@ -250,16 +286,56 @@ function dragInventory(e) {
   }
 }
 
+const cloud = {
+  height: 4,
+  width: 7,
+  startRow: 21,
+  drawCloud() {
+    const numOfClouds = Math.floor(Math.random() * Math.floor(cols / 30) + 1);
+    console.log(numOfClouds);
+    document.querySelectorAll('.cloud').forEach((block) => block.classList.remove('cloud'));
+    for (let counter = 0; counter < numOfClouds; counter += 1) {
+      let row = this.startRow;
+      let col;
+      do {
+        col = randomCol(this);
+      } while (!blocks.canBlockBePlaced(this.width, this.height, row, col));
+      const startCol = col;
+      for (row = this.startRow; row < this.startRow + this.height - 1; row += 1) {
+        for (col = startCol; col < startCol + this.width; col += 1) {
+          worldContainer.querySelector(`[data-row='${row}'][data-col='${col}']`).classList.add('cloud');
+        }
+      }
+      for (col = startCol + 2; col < startCol + this.width - 2; col += 1) {
+        worldContainer.querySelector(`[data-row='${row}'][data-col='${col}']`).classList.add('cloud');
+      }
+    }
+  },
+};
+
 function eventListenersSwitch(e) {
   if (window.location.pathname.match(/game/)) {
-    startWorldMatrix();
+    const url = new URL(window.location.href);
+    width = url.searchParams.get('width');
+    width = width > 800 ? 800 : width < 100 ? 100 : isNaN(width) ? 100 : width;
+    startWorldMatrix(width);
     blocks.dirt.drawDirt();
-    blocks.tree.drawTree(blocks.dirt.height, 2);
-    blocks.stone.drawStone(blocks.dirt.height, 10, 2, 2);
+    const numOfTrees = Math.random() * Math.floor(cols / 25);
+    for (let i = 0; i < numOfTrees; i += 1) {
+      blocks.tree.drawTree();
+    }
+    const numOfStones = Math.random() * Math.floor(cols / 5);
+    for (let i = 0; i < numOfStones; i += 1) {
+      blocks.stone.drawStone(Math.floor(Math.random() * 3) + 1);
+    }
+    const numOfHays = Math.random() * Math.floor(cols / 6);
+    for (let i = 0; i < numOfHays; i += 1) {
+      blocks.hay.drawHay(Math.floor(Math.random() * 3) + 1);
+    }
     drawWorld();
-    blocks.hay.drawHay(blocks.dirt.height, 20, 2, 2);
-    drawWorld();
-
+    cloud.drawCloud();
+    // setInterval(cloud.drawCloud, 5000);
+    setTimeout(cloud.drawCloud, 30000);
     welcomeBtns['reset-world'].addEventListener('click', drawWorld);
     welcomeBtns['reset-game'].addEventListener('click', welcome);
     toolsbox.addEventListener('change', toolChange);
