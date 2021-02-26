@@ -11,6 +11,8 @@ const root = document.querySelector(':root');
 
 const current = {
   tool: 'axe',
+  type: '',
+  cursor: '',
 };
 
 // Game consts
@@ -18,11 +20,23 @@ let rows;
 let cols;
 let world = [];
 const toolsbox = document.querySelector('.tools');
-const inventory = [];
-document.querySelectorAll('.inventory__box').forEach((box) => {
-  box.dataset.index = inventory.length;
-  inventory.push(box);
-});
+const inventory = {
+  boxes: [],
+  checkAvaliable() {
+    return this.boxes.findIndex((box) => box.dataset.type === 'empty');
+  },
+  inventoryElement: document.querySelector('.inventory'),
+  resetInventory() {
+    this.inventoryElement.innerHTML = `
+    <div class="inventory__box --border-color-secondary" data-type="empty"></div>
+    `.repeat(8);
+    inventory.boxes = [];
+    document.querySelectorAll('.inventory__box').forEach((box) => {
+      box.dataset.index = inventory.boxes.length;
+      inventory.boxes.push(box);
+    });
+  },
+};
 
 const tools = {
   axe: {
@@ -51,6 +65,7 @@ const blocks = {
       }
       this.height = dirtHeight;
     },
+    url: './images/blocks/dirtBlock.png',
   },
   tree: {
     tool: 'axe',
@@ -68,6 +83,12 @@ const blocks = {
       }
     },
   },
+  leaf: {
+    url: './images/blocks/leafBlock.png',
+  },
+  log: {
+    url: './images/blocks/logBlock.png',
+  },
   stone: {
     tool: 'pickaxe',
     drawStone(startRow, startCol, width, height) {
@@ -77,6 +98,7 @@ const blocks = {
         }
       }
     },
+    url: './images/blocks/stoneBlock.png',
   },
 };
 
@@ -88,12 +110,27 @@ function start() {
   window.location = './game.html';
 }
 
+function welcome() {
+  window.location = './';
+}
+
 function switchPage(e) {
+  console.log(e.target);
   if (e.currentTarget === welcomeBtns['welcome__btn-explanation']) {
     pages.welcome.classList.add('hidden');
+    pages.settings.classList.add('hidden');
     pages.explanation.classList.remove('hidden');
-  } else {
+  } else if (e.currentTarget === welcomeBtns['welcome__btn-back-explanation']) {
     pages.welcome.classList.remove('hidden');
+    pages.settings.classList.add('hidden');
+    pages.explanation.classList.add('hidden');
+  } else if (e.currentTarget === welcomeBtns['welcome__btn-back-settings']) {
+    pages.welcome.classList.remove('hidden');
+    pages.settings.classList.add('hidden');
+    pages.explanation.classList.add('hidden');
+  } else if (e.currentTarget === welcomeBtns['welcome__btn-settings']) {
+    pages.settings.classList.remove('hidden');
+    pages.welcome.classList.add('hidden');
     pages.explanation.classList.add('hidden');
   }
 }
@@ -129,6 +166,7 @@ function drawWorld() {
       drawCell(row, col);
     }
   }
+  inventory.resetInventory();
 }
 
 function toolChange(e) {
@@ -144,12 +182,56 @@ function toolChange(e) {
 }
 
 function worldClicked(e) {
-  if (tools[current.tool].blocks.some((block) => block === e.target.dataset.type)) {
-    console.log(tools[current.tool].blocks);
-    // TODO Add the things that needs to happen here!
+  if (document.body.style.cursor.includes('tools')) {
+    if (tools[current.tool].blocks.some((block) => block === e.target.dataset.type)) {
+      const index = inventory.checkAvaliable();
+      if (index >= 0) {
+        inventory.boxes[index].dataset.type = e.target.dataset.type;
+        e.target.dataset.type = 'sky';
+      } else {
+        const currentCursor = document.body.style.cursor;
+        document.body.style.cursor = 'not-allowed';
+        inventory.boxes.forEach((box) => box.classList.add('--red-color-border'));
+        worldContainer.addEventListener('pointerup', () => {
+          document.body.style.cursor = currentCursor;
+          inventory.boxes.forEach((box) => box.classList.remove('--red-color-border'));
+        });
+      }
+    } else {
+      toolsbox.querySelector(`[for='${current.tool}']`).classList.add('--bg-color-red');
+      setTimeout(() => toolsbox.querySelector(`[for='${current.tool}']`).classList.remove('--bg-color-red'), 300);
+    }
+  }
+  // else if(document.body.style.cursor.includes('blocks')) {
+
+  // }
+}
+
+function placeInventory(e) {
+  const element = document.elementFromPoint(e.clientX, e.clientY);
+  if (element.dataset.type === 'sky') {
+    element.dataset.type = current.type;
   } else {
-    toolsbox.querySelector(`[for='${current.tool}']`).classList.add('--bg-color-red');
-    setTimeout(() => toolsbox.querySelector(`[for='${current.tool}']`).classList.remove('--bg-color-red'), 300);
+    inventory.boxes[inventory.checkAvaliable()].dataset.type = current.type;
+  }
+  document.body.style.cursor = current.cursor;
+  document.body.removeEventListener('mouseup', placeInventory);
+}
+
+function dragInventory(e) {
+  if (e.target.classList.contains('inventory__box') && e.target.dataset.type !== 'empty') {
+    current.cursor = document.body.style.cursor;
+    current.type = e.target.dataset.type;
+    document.body.style.cursor = `url(${blocks[current.type].url}), grabbing`;
+    e.target.dataset.type = 'empty';
+    document.body.addEventListener('mouseup', placeInventory);
+  } else if (e.target.classList.contains('inventory__box') && e.target.dataset.type === 'empty') {
+    inventory.boxes.forEach((box) => box.classList.add('--red-color-border'));
+    const currentCursor = document.body.style.cursor;
+    worldContainer.addEventListener('pointerup', () => {
+      document.body.style.cursor = currentCursor;
+      inventory.boxes.forEach((box) => box.classList.remove('--red-color-border'));
+    });
   }
 }
 
@@ -160,16 +242,23 @@ function eventListenersSwitch(e) {
     blocks.tree.drawTree(blocks.dirt.height, 2);
     blocks.stone.drawStone(blocks.dirt.height, 10, 2, 2);
     drawWorld();
+
     welcomeBtns['reset-world'].addEventListener('click', drawWorld);
+    welcomeBtns['reset-game'].addEventListener('click', welcome);
     toolsbox.addEventListener('change', toolChange);
-    worldContainer.addEventListener('click', worldClicked);
+    worldContainer.addEventListener('pointerdown', worldClicked);
     setTimeout(() => toolsbox.querySelector(`input[type='radio']`).click(), 1);
+    // TODO Add event listener for touch
+    inventory.inventoryElement.addEventListener('mousedown', dragInventory);
   } else {
     welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
     welcomeBtns['welcome__btn-start'].addEventListener('click', start);
     welcomeBtns['welcome__btn-explanation'].addEventListener('click', switchPage);
-    welcomeBtns['welcome__btn-back'].addEventListener('click', switchPage);
+    welcomeBtns['welcome__btn-settings'].addEventListener('click', switchPage);
+    welcomeBtns['welcome__btn-back-settings'].addEventListener('click', switchPage);
+    welcomeBtns['welcome__btn-back-explanation'].addEventListener('click', switchPage);
   }
 }
 
 window.addEventListener('load', eventListenersSwitch);
+window.addEventListener('selectstart', (e) => e.preventDefault());

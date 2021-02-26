@@ -4,7 +4,7 @@
 
 /* colors */
 .--txt-color-secondary {
-  background-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .--txt-color-primary {
@@ -27,7 +27,24 @@
   background-color: #800419;
 }
 
+.--secondary-color-border {
+  border: 1px var(--secondary-color) solid;
+}
+
+.--red-color-border {
+  border: #800419 1px solid;
+  outline: #800419 1px solid;
+}
+
 /* font size */
+.--font-size-4rem {
+  font-size: 4rem;
+}
+
+.--font-size-3-5rem {
+  font-size: 3.5rem;
+}
+
 .--font-size-3rem {
   font-size: 3rem;
 }

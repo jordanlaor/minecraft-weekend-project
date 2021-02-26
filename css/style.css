@@ -22,13 +22,13 @@ body {
 
 .welcome__btn-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
-  width: 80vw;
+  width: 50vw;
   position: absolute;
-  bottom: 22vh;
-  gap: 10px;
+  bottom: 8vh;
+  gap: 8px;
 }
 
 .welcome__btn:hover {
@@ -46,15 +46,56 @@ body {
   justify-content: flex-end;
 }
 
+.settings {
+  background: url("../images/explanationBG-basic.jpg") center bottom/cover no-repeat;
+  display: flex;
+  padding: 0 25px 25px 0;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+.settings__wrapper {
+  width: 100%;
+  height: calc(100% - 60px);
+  position: absolute;
+  top: 60px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#width {
+  padding: 2px 10px;
+  text-align: center;
+}
+
+#width:invalid {
+  color: #800419;
+}
+
+#welcome__btn-back-settings {
+  z-index: 1;
+}
+
 /* game */
 .game {
   display: grid;
   grid-template-columns: 1fr 150px;
 }
+.game__world-container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
 
 .game__world {
+  height: 100%;
   display: grid;
   grid-auto-flow: row;
+  width: 200vw;
 }
 
 [data-type] {
@@ -71,6 +112,11 @@ body {
 
 [data-type="sky"] {
   background-color: var(--sky);
+  background-image: none;
+}
+
+[data-type="empty"] {
+  background-color: #222222;
   background-image: none;
 }
 
@@ -154,7 +200,6 @@ body {
 }
 
 .inventory__box {
-  border: 1px green solid;
   height: 60px;
 }
 

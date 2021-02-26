@@ -19,7 +19,9 @@
   </head>
   <body>
     <div class="page game">
-      <div class="game__world"></div>
+      <div class="game__world-container">
+        <div class="game__world"></div>
+      </div>
       <div class="game__toolkit">
         <div class="tools">
           <label class="tool__wrapper --bg-color-secondary" for="axe"
@@ -38,16 +40,7 @@
             <div class="tool__name --font-size-1-4rem --txt-color-primary">Pickaxe</div>
           </label>
         </div>
-        <div class="inventory --padding-10px">
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-          <div class="inventory__box"></div>
-        </div>
+        <div class="inventory --padding-10px"></div>
         <div class="game__btn-wrapper --padding-10px">
           <button
             class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-2rem --padding-10px"

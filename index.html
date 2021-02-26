@@ -21,19 +21,25 @@
     <div id="welcome" class="welcome page">
       <div class="welcome__btn-wrapper">
         <button
-          class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
+          class="welcome__btn --bg-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
           id="welcome__btn-start"
         >
           Start
         </button>
         <button
-          class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
+          class="welcome__btn --bg-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
           id="welcome__btn-explanation"
         >
           Explain
         </button>
         <button
-          class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
+          class="welcome__btn --bg-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
+          id="welcome__btn-settings"
+        >
+          Settings
+        </button>
+        <button
+          class="welcome__btn --bg-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
           id="welcome__btn-exit"
         >
           Close
@@ -42,8 +48,28 @@
     </div>
     <div id="explanation" class="explanation page hidden">
       <button
-        class="welcome__btn --txt-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
-        id="welcome__btn-back"
+        class="welcome__btn --bg-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
+        id="welcome__btn-back-explanation"
+      >
+        Go Back
+      </button>
+    </div>
+    <div id="settings" class="settings page hidden">
+      <div class="settings__wrapper">
+        <label for="width" class="--font-size-4rem --txt-color-primary">Width of page</label>
+        <input
+          type="number"
+          name="width"
+          id="width"
+          value="100"
+          min="100"
+          max="800"
+          class="--font-size-3-5rem --txt-color-secondary --bg-color-primary"
+        />
+      </div>
+      <button
+        class="welcome__btn --bg-color-secondary --txt-color-primary --font-size-3rem --padding-10px"
+        id="welcome__btn-back-settings"
       >
         Go Back
       </button>
