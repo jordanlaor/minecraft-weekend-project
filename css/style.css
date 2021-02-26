@@ -136,6 +136,10 @@ body {
   background-image: url("../images/blocks/dirtBlock.png");
 }
 
+[data-type="hay"] {
+  background-image: url("../images/blocks/hayBlock.png");
+}
+
 /* tools */
 .game__toolkit {
   display: grid;
@@ -189,6 +193,10 @@ body {
 
 [for="shovel"] > .tool__photo {
   background-image: url("../images/tools/dirtShovel.png");
+}
+
+[for="hoe"] > .tool__photo {
+  background-image: url("../images/tools/hayHoe.png");
 }
 
 /* inventory */

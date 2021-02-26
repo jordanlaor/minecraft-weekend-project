@@ -51,6 +51,10 @@ const tools = {
     url: `./images/tools/dirtShovelCursor.png`,
     blocks: ['dirt'],
   },
+  hoe: {
+    url: `./images/tools/hayHoeCursor.png`,
+    blocks: ['hay'],
+  },
 };
 const blocks = {
   dirt: {
@@ -99,6 +103,17 @@ const blocks = {
       }
     },
     url: './images/blocks/stoneBlock.png',
+  },
+  hay: {
+    tool: 'hoe',
+    drawHay(startRow, startCol, width, height) {
+      for (let row = startRow; row <= startRow + height; row += 1) {
+        for (let col = startCol; col <= startCol + width; col += 1) {
+          world[row][col] = 'hay';
+        }
+      }
+    },
+    url: './images/blocks/hayBlock.png',
   },
 };
 
@@ -241,6 +256,8 @@ function eventListenersSwitch(e) {
     blocks.dirt.drawDirt();
     blocks.tree.drawTree(blocks.dirt.height, 2);
     blocks.stone.drawStone(blocks.dirt.height, 10, 2, 2);
+    drawWorld();
+    blocks.hay.drawHay(blocks.dirt.height, 20, 2, 2);
     drawWorld();
 
     welcomeBtns['reset-world'].addEventListener('click', drawWorld);
