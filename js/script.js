@@ -147,6 +147,20 @@ const blocks = {
     }
     return true;
   },
+  gravitate(block) {
+    if (block.dataset.type === 'stone' || block.dataset.type === 'hay') {
+      const rowBlock = parseInt(block.dataset.row);
+      const colBlock = parseInt(block.dataset.col);
+      const under = document.querySelector(`[data-row='${rowBlock - 1}'][data-col='${colBlock}']`);
+      if (under.dataset.type === 'sky') {
+        setTimeout(() => {
+          under.dataset.type = block.dataset.type;
+          block.dataset.type = 'sky';
+          this.gravitate(under);
+        }, 300);
+      }
+    }
+  },
 };
 
 function exit() {
@@ -262,6 +276,7 @@ function placeInventory(e) {
   const element = document.elementFromPoint(e.clientX, e.clientY);
   if (element.dataset.type === 'sky') {
     element.dataset.type = current.type;
+    blocks.gravitate(element);
   } else {
     inventory.boxes[inventory.checkAvaliable()].dataset.type = current.type;
   }
@@ -291,23 +306,22 @@ const cloud = {
   width: 7,
   startRow: 21,
   drawCloud() {
-    const numOfClouds = Math.floor(Math.random() * Math.floor(cols / 30) + 1);
-    console.log(numOfClouds);
+    const numOfClouds = Math.floor(Math.random() * Math.floor(cols / 25) + 1);
     document.querySelectorAll('.cloud').forEach((block) => block.classList.remove('cloud'));
     for (let counter = 0; counter < numOfClouds; counter += 1) {
-      let row = this.startRow;
+      let row = cloud.startRow;
       let col;
       do {
-        col = randomCol(this);
-      } while (!blocks.canBlockBePlaced(this.width, this.height, row, col));
+        col = randomCol(cloud);
+      } while (!blocks.canBlockBePlaced(cloud.width, cloud.height, row, col));
       const startCol = col;
-      for (row = this.startRow; row < this.startRow + this.height - 1; row += 1) {
-        for (col = startCol; col < startCol + this.width; col += 1) {
-          worldContainer.querySelector(`[data-row='${row}'][data-col='${col}']`).classList.add('cloud');
+      for (row = cloud.startRow; row < cloud.startRow + cloud.height - 1; row += 1) {
+        for (col = startCol; col < startCol + cloud.width; col += 1) {
+          worldContainer.querySelector(`[data-row='${row}'][data-col='${col}']`).classList.add('cloud') || null;
         }
       }
-      for (col = startCol + 2; col < startCol + this.width - 2; col += 1) {
-        worldContainer.querySelector(`[data-row='${row}'][data-col='${col}']`).classList.add('cloud');
+      for (col = startCol + 2; col < startCol + cloud.width - 2; col += 1) {
+        worldContainer.querySelector(`[data-row='${row}'][data-col='${col}']`).classList.add('cloud') || null;
       }
     }
   },
@@ -334,8 +348,7 @@ function eventListenersSwitch(e) {
     }
     drawWorld();
     cloud.drawCloud();
-    // setInterval(cloud.drawCloud, 5000);
-    setTimeout(cloud.drawCloud, 30000);
+    setInterval(cloud.drawCloud, 5000);
     welcomeBtns['reset-world'].addEventListener('click', drawWorld);
     welcomeBtns['reset-game'].addEventListener('click', welcome);
     toolsbox.addEventListener('change', toolChange);
