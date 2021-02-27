@@ -32,9 +32,13 @@ const inventory = {
   },
   inventoryElement: document.querySelector('.inventory'),
   resetInventory() {
+    const numOfInventoryBoxes = window.matchMedia(`only screen and (max-width: 850px) and (orientation: portrait)`)
+      .matches
+      ? 4
+      : 8;
     this.inventoryElement.innerHTML = `
     <div class="inventory__box --border-color-secondary" data-type="empty"></div>
-    `.repeat(8);
+    `.repeat(numOfInventoryBoxes);
     inventory.boxes = [];
     document.querySelectorAll('.inventory__box').forEach((box) => {
       box.dataset.index = inventory.boxes.length;
@@ -148,7 +152,7 @@ const blocks = {
     return true;
   },
   gravitate(block) {
-    if (block.dataset.type === 'stone' || block.dataset.type === 'hay') {
+    if (block.dataset.type !== 'leaf') {
       const rowBlock = parseInt(block.dataset.row);
       const colBlock = parseInt(block.dataset.col);
       const under = document.querySelector(`[data-row='${rowBlock - 1}'][data-col='${colBlock}']`);
@@ -273,7 +277,8 @@ function worldClicked(e) {
 }
 
 function placeInventory(e) {
-  const element = document.elementFromPoint(e.clientX, e.clientY);
+  const element = document.elementFromPoint(e.layerX, e.layerY);
+  console.log(element);
   if (element.dataset.type === 'sky') {
     element.dataset.type = current.type;
     blocks.gravitate(element);
@@ -282,6 +287,7 @@ function placeInventory(e) {
   }
   document.body.style.cursor = current.cursor;
   document.body.removeEventListener('mouseup', placeInventory);
+  document.body.removeEventListener('touchend', placeInventory);
 }
 
 function dragInventory(e) {
@@ -291,6 +297,7 @@ function dragInventory(e) {
     document.body.style.cursor = `url(${blocks[current.type].url}), grabbing`;
     e.target.dataset.type = 'empty';
     document.body.addEventListener('mouseup', placeInventory);
+    document.body.addEventListener('touchend', placeInventory);
   } else if (e.target.classList.contains('inventory__box') && e.target.dataset.type === 'empty') {
     inventory.boxes.forEach((box) => box.classList.add('--red-color-border'));
     const currentCursor = document.body.style.cursor;
@@ -356,6 +363,7 @@ function eventListenersSwitch(e) {
     setTimeout(() => toolsbox.querySelector(`input[type='radio']`).click(), 1);
     // TODO Add event listener for touch
     inventory.inventoryElement.addEventListener('mousedown', dragInventory);
+    inventory.inventoryElement.addEventListener('touchstart', dragInventory);
   } else {
     welcomeBtns['welcome__btn-exit'].addEventListener('click', exit);
     welcomeBtns['welcome__btn-start'].addEventListener('click', start);
@@ -367,4 +375,3 @@ function eventListenersSwitch(e) {
 }
 
 window.addEventListener('load', eventListenersSwitch);
-window.addEventListener('selectstart', (e) => e.preventDefault());

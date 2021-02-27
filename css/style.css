@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  -webkit-user-select: none;
 }
 
 body {
@@ -85,6 +84,7 @@ body {
 
 /* game */
 .game {
+  -webkit-user-select: none;
   display: grid;
   grid-template-columns: 1fr 150px;
 }
