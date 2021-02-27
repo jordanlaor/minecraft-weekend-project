@@ -43,15 +43,12 @@ body {
   cursor: pointer;
 }
 
-/* TODO Write the explanation and update bg */
-/* TODO Add the video as a demo somehow */
 .explanation {
   background: url("../images/secondaryBG.jpg") center bottom/cover no-repeat;
   display: grid;
   grid-template-rows: 1fr max-content;
   padding: 25px;
   align-items: center;
-  /* width: 100vw; */
 }
 
 .explanation__txt {

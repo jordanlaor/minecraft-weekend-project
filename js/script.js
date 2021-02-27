@@ -7,7 +7,6 @@ document.querySelectorAll('.page').forEach((page) => {
   pages[page.id] = page;
 });
 
-const root = document.querySelector(':root');
 let width = document.querySelector('#width');
 
 const current = {
@@ -270,14 +269,10 @@ function worldClicked(e) {
       setTimeout(() => toolsbox.querySelector(`[for='${current.tool}']`).classList.remove('--bg-color-red'), 300);
     }
   }
-  // else if(document.body.style.cursor.includes('blocks')) {
-
-  // }
 }
 
 function placeInventory(e) {
   const element = document.elementFromPoint(e.layerX, e.layerY);
-  console.log(element);
   if (element.dataset.type === 'sky') {
     element.dataset.type = current.type;
     blocks.gravitate(element);
