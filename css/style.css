@@ -261,7 +261,7 @@ body {
 /* game btns */
 .game__btn-wrapper {
   display: grid;
-  grid-template-rows: repeat(2, max-content);
+  grid-template-rows: repeat(3, max-content);
   align-items: center;
   justify-content: center;
   width: 100%;

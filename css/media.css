@@ -55,7 +55,7 @@
 
   .game__btn-wrapper {
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     height: -webkit-fill-available;
   }
 }

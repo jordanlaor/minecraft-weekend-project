@@ -333,34 +333,38 @@ const cloud = {
   },
 };
 
+function initialWorld() {
+  startWorldMatrix(width);
+  blocks.dirt.drawDirt();
+  const numOfTrees = Math.random() * Math.floor(cols / 25);
+  for (let i = 0; i < numOfTrees; i += 1) {
+    blocks.tree.drawTree();
+  }
+  const numOfStones = Math.random() * Math.floor(cols / 5);
+  for (let i = 0; i < numOfStones; i += 1) {
+    blocks.stone.drawStone(Math.floor(Math.random() * 3) + 1);
+  }
+  const numOfHays = Math.random() * Math.floor(cols / 6);
+  for (let i = 0; i < numOfHays; i += 1) {
+    blocks.hay.drawHay(Math.floor(Math.random() * 3) + 1);
+  }
+  drawWorld();
+}
+
 function eventListenersSwitch(e) {
   if (window.location.pathname.match(/game/)) {
     const url = new URL(window.location.href);
     width = url.searchParams.get('width');
     width = width > 800 ? 800 : width < 100 ? 100 : isNaN(width) ? 100 : width;
-    startWorldMatrix(width);
-    blocks.dirt.drawDirt();
-    const numOfTrees = Math.random() * Math.floor(cols / 25);
-    for (let i = 0; i < numOfTrees; i += 1) {
-      blocks.tree.drawTree();
-    }
-    const numOfStones = Math.random() * Math.floor(cols / 5);
-    for (let i = 0; i < numOfStones; i += 1) {
-      blocks.stone.drawStone(Math.floor(Math.random() * 3) + 1);
-    }
-    const numOfHays = Math.random() * Math.floor(cols / 6);
-    for (let i = 0; i < numOfHays; i += 1) {
-      blocks.hay.drawHay(Math.floor(Math.random() * 3) + 1);
-    }
-    drawWorld();
+    initialWorld();
     cloud.drawCloud();
     setInterval(cloud.drawCloud, 5000);
     welcomeBtns['reset-world'].addEventListener('click', drawWorld);
+    welcomeBtns['new-world'].addEventListener('click', initialWorld);
     welcomeBtns['reset-game'].addEventListener('click', welcome);
     toolsbox.addEventListener('change', toolChange);
     worldContainer.addEventListener('pointerdown', worldClicked);
     setTimeout(() => toolsbox.querySelector(`input[type='radio']`).click(), 1);
-    // TODO Add event listener for touch
     inventory.inventoryElement.addEventListener('mousedown', dragInventory);
     inventory.inventoryElement.addEventListener('touchstart', dragInventory);
   } else {
