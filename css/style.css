@@ -164,9 +164,10 @@ body {
 }
 
 /* tools */
-.game__toolkit {
+.toolkit__wrapper {
   display: grid;
   grid-template-rows: max-content 1fr max-content;
+  height: 100%;
 }
 
 .tools {
@@ -191,9 +192,11 @@ body {
   height: 100%;
 }
 
-.tool__wrapper:hover {
-  cursor: pointer;
-  background-color: #555555ea;
+@media (min-width: 850px) {
+  .tool__wrapper:hover {
+    cursor: pointer;
+    background-color: #555555ea;
+  }
 }
 
 .tool__photo {

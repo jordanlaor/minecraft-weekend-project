@@ -1,4 +1,4 @@
-@media only screen and (max-device-width: 850px) and (orientation: portrait) {
+@media only screen and (max-width: 850px) and (orientation: portrait) {
   .page {
     height: -webkit-fill-available;
   }
@@ -9,5 +9,40 @@
 
   .game__world-container {
     grid-row: 2;
+  }
+
+  .game__toolkit {
+    height: 100%;
+    width: 100vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .toolkit__wrapper {
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    width: 300vw;
+  }
+
+  .tools {
+    grid-template-columns: repeat(4, 1fr);
+    height: -webkit-fill-available;
+  }
+
+  .inventory {
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    height: -webkit-fill-available;
+  }
+
+  .inventory__box {
+    height: 100%;
+  }
+
+  .game__btn-wrapper {
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    height: -webkit-fill-available;
   }
 }
