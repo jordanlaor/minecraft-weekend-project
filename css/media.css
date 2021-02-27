@@ -2,6 +2,11 @@
   .page {
     height: -webkit-fill-available;
   }
+
+  .welcome__logo {
+    height: auto;
+  }
+
   .game {
     grid-template-columns: 1fr;
     grid-template-rows: 15vh 1fr;
@@ -16,12 +21,19 @@
     width: 100vw;
     overflow-x: scroll;
     overflow-y: hidden;
+    scroll-snap-type: x mandatory;
   }
 
   .toolkit__wrapper {
     grid-template-rows: 1fr;
     grid-template-columns: repeat(3, 1fr);
     width: 300vw;
+  }
+
+  .tools,
+  .inventory,
+  .game__btn-wrapper {
+    scroll-snap-align: start;
   }
 
   .tools {
@@ -54,7 +66,7 @@
   }
 
   .landscape {
-    background: url("../images/explanationBG-basic.jpg") center bottom/cover no-repeat;
+    background: url("../images/secondaryBG.jpg") center bottom/cover no-repeat;
     display: flex;
     padding: 25px;
     align-items: center;

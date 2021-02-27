@@ -15,10 +15,16 @@ body {
 
 /* Index */
 .welcome {
-  background: url("../images/landingPageBG.jpg") center bottom/cover no-repeat;
+  background: url("../images/mainBG.jpg") center bottom/cover no-repeat;
   position: relative;
   display: flex;
   justify-content: center;
+}
+
+.welcome__logo {
+  background: url("../images/MinecraftLogo.png") no-repeat center 30% / contain;
+  height: 100%;
+  width: 85%;
 }
 
 .welcome__btn-wrapper {
@@ -40,15 +46,26 @@ body {
 /* TODO Write the explanation and update bg */
 /* TODO Add the video as a demo somehow */
 .explanation {
-  background: url("../images/explanationBG.jpg") center bottom/cover no-repeat;
-  display: flex;
-  padding: 0 25px 25px 0;
-  align-items: flex-end;
-  justify-content: flex-end;
+  background: url("../images/secondaryBG.jpg") center bottom/cover no-repeat;
+  display: grid;
+  grid-template-rows: 1fr max-content;
+  padding: 25px;
+  align-items: center;
+  /* width: 100vw; */
+}
+
+.explanation__txt {
+  height: 100%;
+  background: url("../images/explanationTXT.png") no-repeat center center/contain;
+  justify-self: unset;
+}
+
+#welcome__btn-back-explanation {
+  justify-self: center;
 }
 
 .settings {
-  background: url("../images/explanationBG-basic.jpg") center bottom/cover no-repeat;
+  background: url("../images/secondaryBG.jpg") center bottom/cover no-repeat;
   display: flex;
   padding: 0 25px 25px 0;
   align-items: flex-end;

@@ -181,7 +181,6 @@ function welcome() {
 }
 
 function switchPage(e) {
-  console.log(e.target);
   if (e.currentTarget === welcomeBtns['welcome__btn-explanation']) {
     pages.welcome.classList.add('hidden');
     pages.settings.classList.add('hidden');
@@ -374,22 +373,4 @@ function eventListenersSwitch(e) {
   }
 }
 
-function orientationLandscape(e) {
-  // console.log(e);
-  // const gameHtml = document.body.innerHTML;
-  // if (window.matchMedia(`only screen and (max-width: 850px) and (orientation: landscape)`)) {
-  //   document.querySelector(
-  // //     '.page:not(.hidden)'
-  //   ).innerHTML = `<div class="page landscape --font-size-4rem --txt-color-primary --padding-10px" id="landscape">
-  //   Please Rotate the screen!
-  //   </div>
-  // //   <script src="./js/script.js"></script>`;
-  // } else {
-  //   console.log(gameHtml);
-  //   console.log(document.querySelector('.page:not(.hidden)'));
-  //   document.querySelector('.page:not(.hidden)').innerHTML = gameHtml;
-  // }
-}
-
 window.addEventListener('load', eventListenersSwitch);
-window.addEventListener('deviceorientation', orientationLandscape);
