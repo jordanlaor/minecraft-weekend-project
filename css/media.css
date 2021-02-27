@@ -2,4 +2,12 @@
   .page {
     height: -webkit-fill-available;
   }
+  .game {
+    grid-template-columns: 1fr;
+    grid-template-rows: 150px 1fr;
+  }
+
+  .game__world-container {
+    grid-row: 2;
+  }
 }
